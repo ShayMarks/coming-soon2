@@ -1,0 +1,310 @@
+/* CSS Reset and Variables */
+:root {
+    --bg-base: #0f0204;
+    --text-main: #ffffff;
+    --text-muted: rgba(255, 255, 255, 0.65);
+    /* Deep crimson and dark rose colors */
+    --accent-1: #4c0519;
+    --accent-2: #be123c;
+    --accent-3: #831843;
+    --accent-4: #e11d48;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-base);
+    color: var(--text-main);
+    font-family: 'Outfit', sans-serif;
+    min-height: 100vh;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Ambient Background Effect */
+.ambient-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.5;
+    animation: floating 25s infinite ease-in-out;
+}
+
+.blob-1 {
+    width: 60vw;
+    height: 60vw;
+    background: radial-gradient(circle, var(--accent-3) 0%, transparent 70%);
+    top: -20vh;
+    left: -10vw;
+    animation-delay: 0s;
+}
+
+.blob-2 {
+    width: 50vw;
+    height: 50vw;
+    background: radial-gradient(circle, var(--accent-2) 0%, transparent 70%);
+    bottom: -20vh;
+    right: -10vw;
+    animation-delay: -5s;
+    animation-duration: 30s;
+}
+
+.blob-3 {
+    width: 45vw;
+    height: 45vw;
+    background: radial-gradient(circle, var(--accent-4) 0%, transparent 70%);
+    top: 40vh;
+    left: 25vw;
+    animation-delay: -10s;
+    animation-duration: 20s;
+}
+
+.glass-overlay {
+    position: absolute;
+    inset: 0;
+    backdrop-filter: blur(120px);
+    -webkit-backdrop-filter: blur(120px);
+    background: rgba(15, 2, 4, 0.4);
+    z-index: 10;
+}
+
+/* Animations */
+@keyframes floating {
+    0%, 100% {
+        transform: translate(var(--move-x, 0px), var(--move-y, 0px)) scale(1);
+    }
+    33% {
+        transform: translate(calc(8% + var(--move-x, 0px)), calc(-5% + var(--move-y, 0px))) scale(1.05);
+    }
+    66% {
+        transform: translate(calc(-5% + var(--move-x, 0px)), calc(8% + var(--move-y, 0px))) scale(0.95);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes expandLine {
+    from {
+        width: 0;
+        opacity: 0;
+    }
+    to {
+        width: 80px;
+        opacity: 0.3;
+    }
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Layout wrapper */
+.content-wrapper {
+    position: relative;
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding: 2.5rem 5rem;
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    animation: fadeInScale 1.2s ease-out 0.2s both;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.brand-logo {
+    width: 38px;
+    height: 38px;
+    border: 1.5px solid var(--text-main);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.inner-dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--text-main);
+    border-radius: 50%;
+}
+
+.brand-name {
+    font-weight: 500;
+    font-size: 1.2rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+}
+
+.contact-btn {
+    color: var(--text-main);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    position: relative;
+    transition: opacity 0.3s;
+}
+
+.contact-btn::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: var(--text-main);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s cubic-bezier(0.86, 0, 0.07, 1);
+}
+
+.contact-btn:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+/* Main Content */
+main.hero {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.hero-content {
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: transform;
+}
+
+.subtitle {
+    font-size: 1.15rem;
+    font-weight: 300;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
+}
+
+.title {
+    font-size: clamp(3.5rem, 10vw, 7.5rem);
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    margin-left: 0.15em; /* Optical centering compensation */
+    line-height: 1.1;
+    margin-bottom: 2.5rem;
+    color: var(--text-main);
+    animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.8s both;
+    text-shadow: 0 10px 40px rgba(0,0,0,0.3);
+}
+
+.line-divider {
+    height: 2px;
+    background-color: var(--text-main);
+    margin: 0 auto 2.5rem auto;
+    animation: expandLine 1s cubic-bezier(0.16, 1, 0.3, 1) 1.1s both;
+}
+
+.description {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    max-width: 480px;
+    font-weight: 300;
+    line-height: 1.8;
+    letter-spacing: 0.03em;
+    animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) 1.2s both;
+}
+
+/* Footer */
+footer {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 1rem;
+    animation: fadeInScale 1.2s ease-out 1.4s both;
+}
+
+.social-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.social-icon {
+    color: var(--text-main);
+    opacity: 0.6;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.social-icon:hover {
+    opacity: 1;
+    transform: translateY(-4px);
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+/* Responsive Rules */
+@media (max-width: 800px) {
+    .content-wrapper {
+        padding: 2rem;
+    }
+    
+    .title {
+        letter-spacing: 0.1em;
+        margin-left: 0.1em;
+    }
+
+    .brand-name {
+        display: none;
+    }
+}
